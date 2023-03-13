@@ -1,0 +1,22 @@
+{
+  "name": "handbook_of_medicines",
+  "version": "1.0.0",
+  "description": "Development of a mobile application for the information and reference system of medicines",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodejs server.js",
+    "test": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "mongoose": "^7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
