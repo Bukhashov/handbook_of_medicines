@@ -3,6 +3,8 @@ const router = Router();
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 const auth = require('../controllers/auth');
+const medicines = require('../controllers/medicines');
+const save = require('../controllers/save');
 
 // AUTH
 router.post('/auth/singin', [
@@ -23,17 +25,29 @@ router.delete('/auth/user/:id', passport.authenticate('jwt', {session: false}), 
     })
 })
 
+// medicines
+router.get('/medicines', medicines.getAll);
+router.get('/medicine/:id', medicines.getById);
+router.post('/medicine/add', passport.authenticate('jwt', {session: false}), [
+    check('name').not().isEmpty().withMessage("name is required"),
+    check('releaseForm').not().isEmpty().withMessage("releaseForm is required"),
+    check('packages').not().isEmpty().withMessage("package is required"),
+    check('pharmachologicEffect').not().isEmpty().withMessage("pharmachologicEffect is required"),
+    check('indications').not().isEmpty().withMessage("indications is required"),
+    check('contraindications').not().isEmpty().withMessage("contraindications is required"),
+    check('specialInstructions').not().isEmpty().withMessage("specialInstructions is required"),
+    check('compound').not().isEmpty().withMessage("compound is required"),
+    check('dosageAndAdministration').not().isEmpty().withMessage("dosageAndAdministration is required"),
+    check('overdose').not().isEmpty().withMessage("overdose is required"),
+    check('storageConditions').not().isEmpty().withMessage("storageConditions is required"),
+    check('bestBeforeDate').not().isEmpty().withMessage("bestBeforeDate is required"),
+], medicines.add);
+router.post('/medicine/delete', passport.authenticate('jwt', {session: false}), medicines.delete);
 
-
-
-// Test
-router.get('/get', passport.authenticate('jwt', {session: false}), function(req, res) {
-    console.log("req get")
-    
-    res.status(200).json({
-        "a": "sg"
-    })
-})
+// save
+router.post('/save/add', passport.authenticate('jwt', {session: false}), save.add);
+router.post('/save/delete', passport.authenticate('jwt', {session: false}), save.delete);
+router.get('/save', passport.authenticate('jwt', {session: false}), save.get);
 
 
 // https://www.positronx.io/express-validator-tutorial-with-input-validation-examples/
