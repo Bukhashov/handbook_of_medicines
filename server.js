@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const passsport = require('passport')
 const mongoose = require('mongoose');
 var cors = require('cors');
 const routes = require('./src/routes/index');
@@ -9,12 +10,15 @@ const app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use(passsport.initialize())
+require('./middleware/passport')(passsport)
 app.use(cors({
     origin: '*',
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }))
 
 app.use('/api/v1', routes)
+
 
 const start = async () => {
     try {
