@@ -12,7 +12,7 @@ const MainNavigator = () => {
                 <Stack.Screen 
                     name="Main" 
                     component={MainScreen} 
-                    options={{headerShown: false}} 
+                    options={{headerShown: true}} 
                 />
             </Stack.Navigator>
         </NavigationContainer>

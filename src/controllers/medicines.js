@@ -3,7 +3,7 @@ const medicinesModel = require('../models/medicine');
 
 class Medicines{ 
     getAll = async (req, res) => {
-        const medicines = await medicinesModel.find({}, {name: 1, _id: 1, image: 1})
+        const medicines = await medicinesModel.find({}, {name: 1, _id: 1, image: 1, pharmachologicEffect: 1})
         if(!medicines) {
             res.status(500).json({"massage" : "server bad work"});
             return;
