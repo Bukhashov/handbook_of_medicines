@@ -2,33 +2,33 @@ const {Schema, model} = require('mongoose');
 
 const medicine = new Schema({
     // фото
-    image:                   {type: String},
+    image:                   {type: Array},
     // Дәрінін аты :: Нурофен
     name:                   {type: String},
     // Форма выпуска :: Таблетки
-    releaseForm:            {type: String},
+    releaseForm:            {type: Array},
     // Упаковка :: 10
-    package:                {type: String},
+    package:                {type: Array},
     // фармакологический эффект
-    pharmachologicEffect:   {type: String},
+    pharmachologicEffect:   {type: Array},
     // Показания
-    indications:            {type: String},
+    indications:            {type: Array},
     // противопоказания
-    contraindications:      {type: String},
+    contraindications:      {type: Array},
     // // Применение при беременности к кормлении грудью
     // forPregnancy:           {type: String},
     // Особые указания
-    specialInstructions:    {type: String},
+    specialInstructions:    {type: Array},
     // Состав
-    compound:               {type: String},
+    compound:               {type: Array},
     // Способ применения и дозы
-    dosageAndAdministration: {type: String},
+    dosageAndAdministration: {type: Array},
     // Передозировка
-    overdose:                {type: String},
+    overdose:                {type: Array},
     // Условия хранения
-    storageConditions:       {type: String},
+    storageConditions:       {type: Array},
     // Срок годности
-    bestBeforeDate:          {type: String}
+    bestBeforeDate:          {type: Array}
 });
 
 module.exports = model('medicines', medicine);

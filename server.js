@@ -19,7 +19,6 @@ app.use(cors({
 
 app.use('/api/v1', routes)
 
-
 const start = async () => {
     try {
         // connect mongodb database
