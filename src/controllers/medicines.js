@@ -22,6 +22,36 @@ class Medicines{
     
         res.status(200).json(medicine);
     }
+    getByIds = async (req, res) => {
+        var errors = validationResult(req).array();
+        if(errors.length >= 1){ 
+            res.status(400).json({
+                "massage" : "send all data"
+            })
+            return
+        }
+        
+        const ides = req.body.ides;
+        console.log(ides[0]);
+        let medicines = [];
+        console.log(typeof(ides));
+
+
+        for(let i=0; i<ides.length; i++){
+            let medicineDbRes = await medicinesModel.findById(ides[i], {name: 1, _id: 1, image: 1, pharmachologicEffect: 1});
+            // console.log(medicineDbRes);
+            if(medicineDbRes){
+                medicines.push(medicineDbRes);
+            }
+            console.log(medicines);
+        }
+
+        
+        res.status(200).json(medicines)
+
+        // "64143e758f83acf907281454",
+        // "6415b754a6f61c3b3d5ecabf",
+    }
     add = async (req, res) => {
         var errors = validationResult(req).array();
         if(errors.length >= 1){ 

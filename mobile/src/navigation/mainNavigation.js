@@ -1,21 +1,17 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainScreen from '../screen/mainScreen';
+import MedicineScreen from '../screen/medicineScreen';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen 
-                    name="Main" 
-                    component={MainScreen} 
-                    options={{headerShown: true}} 
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator >
+            <Stack.Screen name="main" component={MainScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="medicine" component={MedicineScreen} options={{ headerShown: false }}/>
+        </Stack.Navigator>
     )
 }
 

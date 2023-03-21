@@ -28,6 +28,9 @@ router.delete('/auth/user/:id', passport.authenticate('jwt', {session: false}), 
 // medicines
 router.get('/medicines', medicines.getAll);
 router.get('/medicine/:id', medicines.getById);
+router.post('/medicine/byides', [
+    check('ides').not().isEmpty().withMessage("ides is required"),
+], medicines.getByIds);
 router.post('/medicine/add', passport.authenticate('jwt', {session: false}), [
     check('name').not().isEmpty().withMessage("name is required"),
     check('releaseForm').not().isEmpty().withMessage("releaseForm is required"),
