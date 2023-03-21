@@ -105,7 +105,6 @@ const MedicineScreen = (props) => {
                                         ))
                                     }
                                 </View>
-                                
                                
                             </View>
                             </View>

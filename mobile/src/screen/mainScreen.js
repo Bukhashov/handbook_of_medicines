@@ -4,8 +4,8 @@ import ActivityIndicatorComponent from '../component/activityIndicator';
 import axios from 'axios';
 import { SearchBar } from '@rneui/themed';
 import ContainerConponent from '../component/container';
-
 import config from '../../config/config';
+
 
 const MainScreen = ({navigation}) => {
     const [containers, setContainers] = useState([]);
@@ -29,10 +29,11 @@ const MainScreen = ({navigation}) => {
 
     const getDataNames = async () => {
         let dataName = []
-        for(let i=0; i<containers.length; i++){
-            dataName.push(containers[i].name)
-        }
-        setMasterDataSource(dataName)
+        console.log(containers)
+        // for(let i=0; i<containers.length; i++){
+        //     dataName.push(containers[i].name)
+        // }
+        // setMasterDataSource(dataName)
     }
 
     const searchFilter = (text) => {
