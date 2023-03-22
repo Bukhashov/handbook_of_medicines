@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect} from 'react';
-import {View, SafeAreaView, ScrollView, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView, FlatList} from 'react-native';
 import ActivityIndicatorComponent from '../component/activityIndicator';
 import axios from 'axios';
 import { SearchBar } from '@rneui/themed';
@@ -10,16 +10,18 @@ import config from '../../config/config';
 const MainScreen = ({navigation}) => {
     const [containers, setContainers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
+    
     const [search, setSearch] = useState('');
 
     const featData = async () => {
         try {
             await axios.get(`${config.API_URI}${config.API_VERSION}/medicines`).then((response) => {
                 setContainers(response.data);
+                setFilteredDataSource(response.data);
                 setIsLoading(false);
-                getDataNames()
             })
         }
         catch(e) {
@@ -27,28 +29,33 @@ const MainScreen = ({navigation}) => {
         }
     }
 
-    const getDataNames = async () => {
-        let dataName = []
-        console.log(containers)
-        // for(let i=0; i<containers.length; i++){
-        //     dataName.push(containers[i].name)
-        // }
-        // setMasterDataSource(dataName)
-    }
-
     const searchFilter = (text) => {
-        if(text){
-            const newData = masterDataSource.filter((item) => {
-                const itemData = item ? item.toUpperCase() : ''.toUpperCase();
+        if(text){            
+            const newData = containers.filter((item) => {
+                const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1
             })
             setFilteredDataSource(newData);
             setSearch(text);
         }else{
+            setFilteredDataSource(containers);
             setSearch(text)
         }
     }
+    const getItem = (item) => {
+        console.log('Id : ' + item._id + ' Title : ' + item.name);
+    };
+
+    const ItemView = ({ item }) => {
+        return (
+            <Text style={{ padding: 10 }} onPress={() => getItem(item)}>
+                {item._id}
+                {'.'}
+                {item.name.toUpperCase()}
+            </Text>
+        );
+    };
 
     useEffect(() => {
         featData();
@@ -85,6 +92,7 @@ const MainScreen = ({navigation}) => {
                 data={filteredDataSource}
                 keyExtractor={(item, index) => index.toString()}
                 ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
             />
 
             {
@@ -100,7 +108,7 @@ const MainScreen = ({navigation}) => {
                         >
                             <View style={{ padding: 8 }}>
                                 {
-                                    containers.map((container)=> (
+                                    filteredDataSource.map((container)=> (
                                         <ContainerConponent 
                                             key={container._id}
                                             navigation={navigation}
@@ -112,6 +120,7 @@ const MainScreen = ({navigation}) => {
                                     ))
                                 }
                             </View>
+                            <View style={{ height: 130 }} />
                         </ScrollView>
                     </SafeAreaView>
                 )
